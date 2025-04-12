@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Upload documents to EduTVET for teaching, learning, and professional growth.">
+  <title>Upload Document - EduTVET</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css"> <!-- Link to the custom stylesheet -->
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-blue-600">EduTVET</h1>
+      <nav class="space-x-4">
+        <a href="documents.html" class="text-gray-700 hover:text-blue-600" aria-label="Go to Documents page">Documents</a>
+        <a href="#features" class="text-gray-700 hover:text-blue-600" aria-label="Learn about features">Features</a>
+        <a href="login.html" class="text-gray-700 hover:text-blue-600" aria-label="Login to your account">Login</a>
+        <a href="/signup.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700" aria-label="Sign up for EduTVET">Sign Up</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Upload Section -->
+  <section class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-blue-700 text-center mb-8">Upload New Document</h2>
+    <p class="text-center text-gray-600 mb-12">Share your resources with the EduTVET community by uploading approved documents for teaching and learning.</p>
+
+    <!-- Upload Form -->
+    <form id="uploadForm" class="space-y-6 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow">
+      <div>
+        <label for="file" class="block font-medium text-gray-700">Document File</label>
+        <input type="file" id="file" name="file" accept=".pdf,.docx,.pptx" class="mt-2 block w-full p-2 border border-gray-300 rounded" required>
+      </div>
+
+      <div>
+        <label for="title" class="block font-medium text-gray-700">Document Title</label>
+        <input type="text" id="title" name="title" class="mt-2 block w-full p-2 border border-gray-300 rounded" placeholder="Title of the document" required>
+      </div>
+
+      <div>
+        <label for="category" class="block font-medium text-gray-700">Category</label>
+        <input type="text" id="category" name="category" class="mt-2 block w-full p-2 border border-gray-300 rounded" placeholder="Agriculture, ICT, Business, etc." required>
+      </div>
+
+      <div>
+        <label for="level" class="block font-medium text-gray-700">Level</label>
+        <select id="level" name="level" class="mt-2 block w-full p-2 border border-gray-300 rounded" required>
+          <option value="">Select Level</option>
+          <option value="Level 4">Level 4</option>
+          <option value="Level 5">Level 5</option>
+          <option value="Level 6">Level 6</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="description" class="block font-medium text-gray-700">Description</label>
+        <textarea id="description" name="description" class="mt-2 block w-full p-2 border border-gray-300 rounded" placeholder="Provide a brief description of the document" required></textarea>
+      </div>
+
+      <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full">Upload Document</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-10">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+
+        <!-- Departments -->
+        <div>
+          <h4 class="text-xl font-semibold mb-4 text-blue-400">Departments</h4>
+          <ul class="space-y-2 text-gray-300">
+            <li>Agriculture</li>
+            <li>Business</li>
+            <li>Agriculture Engineering</li>
+            <li>ICT</li>
+            <li>Electrical</li>
+          </ul>
+        </div>
+
+        <!-- Contact Information -->
+        <div>
+          <h4 class="text-xl font-semibold mb-4 text-blue-400">Contact Us</h4>
+          <p class="text-gray-300">Phone: <a href="tel:0708715547" class="text-blue-300 hover:underline">0708715547</a></p>
+          <p class="text-gray-300">Email: <a href="mailto:educhemain@gmail.com" class="text-blue-300 hover:underline">educhemain@gmail.com</a></p>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+          <h4 class="text-xl font-semibold mb-4 text-blue-400">Follow Us</h4>
+          <div class="flex flex-col items-center md:items-start space-y-4 text-gray-300">
+            <a href="https://x.com" target="_blank" class="flex items-center space-x-2 hover:text-blue-400 transition" aria-label="Follow us on X">
+              <i class="fab fa-twitter"></i> <!-- FontAwesome icon for X -->
+              <span>X</span>
+            </a>
+            <a href="https://facebook.com" target="_blank" class="flex items-center space-x-2 hover:text-blue-400 transition" aria-label="Follow us on Facebook">
+              <i class="fab fa-facebook"></i> <!-- FontAwesome icon for Facebook -->
+              <span>Facebook</span>
+            </a>
+            <a href="https://linkedin.com" target="_blank" class="flex items-center space-x-2 hover:text-blue-400 transition" aria-label="Follow us on LinkedIn">
+              <i class="fab fa-linkedin"></i> <!-- FontAwesome icon for LinkedIn -->
+              <span>LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm text-gray-400">
+        &copy; 2025 <span class="text-blue-400 font-semibold">EduTVET</span>. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Add FontAwesome for icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <script>
+    // Handle form submission
+    document.getElementById('uploadForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById('file');
+      const formData = new FormData();
+      formData.append('file', fileInput.files[0]);
+      formData.append('upload_preset', 'edutvet'); // Replace with your unsigned upload preset
+
+      try {
+        const response = await fetch('https://api.cloudinary.com/v1_1/dnlb4ucpu/upload', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await response.json();
+        if (data.secure_url) {
+          alert('Document uploaded successfully!');
+          console.log('Uploaded file URL:', data.secure_url);
+          document.getElementById('uploadForm').reset();
+        } else {
+          alert('Error uploading document. Please try again.');
+        }
+      } catch (err) {
+        alert('Error uploading document. Please try again.');
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+
+</html>

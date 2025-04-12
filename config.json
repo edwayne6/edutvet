@@ -1,0 +1,44 @@
+{
+  "projectName": "EduTVET",
+  "version": "1.0.0",
+  "author": "Edwin Chesaro",
+  "description": "A platform for accessing and managing TVET educational documents.",
+  "settings": {
+    "theme": "light",
+    "language": "en",
+    "enableNotifications": true
+  },
+  "api": {
+    "baseUrl": "https://api.edutvet.com",
+    "timeout": 5000,
+    "endpoints": {
+      "signup": "/signup",
+      "login": "/login",
+      "resetPassword": "/api/reset-password",
+      "documents": "/api/documents"
+    }
+  },
+  "features": {
+    "authentication": true,
+    "analytics": true,
+    "chatSupport": false,
+    "documentSearch": true,
+    "filtering": true
+  },
+  "contact": {
+    "phone": "0708715547",
+    "email": "educhemain@gmail.com"
+  },
+  "socialMedia": {
+    "twitter": "https://x.com",
+    "facebook": "https://facebook.com",
+    "linkedin": "https://linkedin.com"
+  },
+  "departments": [
+    "Agriculture",
+    "Business",
+    "Agriculture Engineering",
+    "ICT",
+    "Electrical"
+  ]
+}

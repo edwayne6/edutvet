@@ -1,0 +1,112 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+}
+
+/* Navbar */
+header {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+header nav a {
+  transition: color 0.3s ease;
+}
+
+/* Hero Section */
+section.bg-blue-50 {
+  background-color: #f0f9ff;
+}
+
+section.bg-blue-50 h2 {
+  font-size: 2.5rem;
+}
+
+/* Input Field */
+input#searchInput {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input#searchInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Featured Documents */
+section#documents h3 {
+  font-size: 1.75rem;
+}
+
+section#documents .grid div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section#documents .grid div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Features Section */
+section#features h3 {
+  font-size: 1.75rem;
+}
+
+section#features .grid div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section#features .grid div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+  background-color: #1f2937;
+  color: #ffffff;
+}
+
+footer h4 {
+  font-size: 1.25rem;
+}
+
+footer a {
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #3b82f6;
+}
+
+footer .flex div {
+  margin-bottom: 1rem;
+}
+
+footer .flex div:last-child {
+  margin-bottom: 0;
+}
+
+footer .space-x-4 a {
+  font-size: 1.25rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  footer .flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  footer .flex div {
+    margin-bottom: 1.5rem;
+  }
+}
