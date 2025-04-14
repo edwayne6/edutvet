@@ -185,7 +185,7 @@ input:focus {
 .slider-container {
   max-width: 1200px;
   margin: 0 auto;
-  position: relative;
+  padding: 0 1rem; /* Add padding for better alignment */
 }
 
 /* Slider Wrapper */
@@ -204,7 +204,7 @@ input:focus {
 .slide img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 12rem; /* Adjust height to make the slider more compact */
   border-radius: 8px;
 }
 
@@ -212,4 +212,74 @@ input:focus {
 button {
   cursor: pointer;
   z-index: 10;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  header nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  footer .flex {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  footer .flex div {
+    margin-bottom: 1.5rem;
+  }
+
+  .slide img {
+    height: 10rem; /* Reduce height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .slide img {
+    height: 8rem; /* Further reduce height for very small screens */
+  }
+}
+
+/* Form Container */
+form {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  z-index: 10;
+}
+
+button:hover {
+  background-color: #2563eb; /* Darker blue */
+  transform: scale(1.05);
+}
+
+/* Input Fields */
+input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Password Toggle Button */
+#togglePassword {
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+#togglePassword:hover {
+  color: #2563eb;
 }
