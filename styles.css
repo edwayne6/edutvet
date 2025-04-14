@@ -211,8 +211,9 @@ input:focus {
 .slide img {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: 8px;
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the entire image is visible */
+  border-radius: 8px; /* Add rounded corners */
 }
 
 /* Navigation Buttons */
@@ -238,7 +239,7 @@ button {
   }
 
   .slide img {
-    height: 10rem; /* Reduce height for smaller screens */
+    height: auto; /* Ensure images scale properly on smaller screens */
   }
 }
 
