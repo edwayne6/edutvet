@@ -300,19 +300,28 @@ document.addEventListener("DOMContentLoaded", () => {
     slides.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
 
-  prevButton.addEventListener("click", () => {
+  // Move to the next slide
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slideCount;
+    updateSliderPosition();
+  }
+
+  // Move to the previous slide
+  function prevSlide() {
     currentIndex = (currentIndex - 1 + slideCount) % slideCount;
     updateSliderPosition();
-  });
+  }
 
-  nextButton.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slideCount;
-    updateSliderPosition();
-  });
+  // Event listeners for navigation buttons
+  prevButton.addEventListener("click", prevSlide);
+  nextButton.addEventListener("click", nextSlide);
 
-  // Auto-slide every 5 seconds
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % slideCount;
-    updateSliderPosition();
-  }, 5000);
+  // Auto-slide every 3 seconds
+  let autoSlide = setInterval(nextSlide, 3000);
+
+  const slider = document.querySelector(".slider");
+  slider.addEventListener("mouseenter", () => clearInterval(autoSlide));
+  slider.addEventListener("mouseleave", () => {
+    autoSlide = setInterval(nextSlide, 3000);
+  });
 });
