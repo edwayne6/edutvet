@@ -32,27 +32,7 @@
       <p><a href="/index.html" class="text-blue-600 hover:underline">Home</a></p>
     </div>
   </div>
-  <script>
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
 
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password })
-      });
-
-      const result = await response.json();
-      if (response.ok) {
-        alert(result.msg);
-        window.location.href = "/dashboard.html"; // Redirect to dashboard or home page
-      } else {
-        alert(result.msg);
-      }
-    });
-  </script>
   <script src="scripts.js"></script>
 </body>
 </html>

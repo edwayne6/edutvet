@@ -17,6 +17,32 @@ header nav a {
   transition: color 0.3s ease;
 }
 
+/* General hover effect for navigation links */
+nav a {
+  transition: all 0.3s ease-in-out;
+  position: relative;
+}
+
+nav a:hover {
+  color: #1d4ed8; /* Change text color to blue */
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background: #1d4ed8; /* Blue underline */
+  left: 50%;
+  bottom: -2px;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+nav a:hover::after {
+  width: 100%; /* Expand underline on hover */
+}
+
 /* Hero Section */
 section.bg-blue-50 {
   background-color: #f0f9ff;

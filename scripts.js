@@ -27,6 +27,118 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Handle Sign Up Form Submission
+document.addEventListener("DOMContentLoaded", () => {
+  const signupForm = document.getElementById("signupForm");
+  if (signupForm) {
+    signupForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!passwordRegex.test(password)) {
+        alert("Password must be at least 8 characters long and include both letters and numbers.");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/signup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, email, password }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.msg);
+          window.location.href = "/login.html";
+        } else {
+          alert(result.msg);
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again.");
+        console.error(error);
+      }
+    });
+  }
+});
+
+// Handle Login Form Submission
+document.addEventListener("DOMContentLoaded", () => {
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    loginForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.msg);
+          window.location.href = "/dashboard.html"; // Redirect to dashboard or home page
+        } else {
+          alert(result.msg);
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again.");
+        console.error(error);
+      }
+    });
+  }
+});
+
+// Handle Upload Form Submission
+document.addEventListener("DOMContentLoaded", () => {
+  const uploadForm = document.getElementById("uploadForm");
+  if (uploadForm) {
+    uploadForm.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const fileInput = document.getElementById("file");
+      const formData = new FormData();
+      formData.append("file", fileInput.files[0]);
+      formData.append("upload_preset", "edutvet"); // Replace with your unsigned upload preset
+
+      try {
+        const response = await fetch("https://api.cloudinary.com/v1_1/dnlb4ucpu/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        if (data.secure_url) {
+          alert("Document uploaded successfully!");
+          console.log("Uploaded file URL:", data.secure_url);
+          uploadForm.reset();
+        } else {
+          alert("Error uploading document. Please try again.");
+        }
+      } catch (err) {
+        alert("Error uploading document. Please try again.");
+        console.error(err);
+      }
+    });
+  }
+});
+
 // Simple Slider for Featured Documents
 let currentSlide = 0;
 const slides = document.querySelectorAll(".featured-slide");
@@ -113,3 +225,48 @@ function filterDocuments() {
     resultsContainer.innerHTML += docElement;
   });
 }
+
+// Handle Reset Password Form Submission
+document.addEventListener("DOMContentLoaded", () => {
+  const resetPasswordForm = document.getElementById("resetPasswordForm");
+  if (resetPasswordForm) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+
+    if (!token) {
+      alert("Invalid or missing token. Please try resetting your password again.");
+      window.location.href = "/index.html";
+      return;
+    }
+
+    resetPasswordForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const newPassword = document.getElementById("newPassword").value;
+
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+      if (!passwordRegex.test(newPassword)) {
+        alert("Password must be at least 8 characters long and include both letters and numbers.");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/reset-password", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, newPassword }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert(result.msg);
+          window.location.href = "/login.html";
+        } else {
+          alert(result.msg);
+        }
+      } catch (error) {
+        alert("An error occurred. Please try again later.");
+        console.error(error);
+      }
+    });
+  }
+});
