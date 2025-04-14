@@ -1,248 +1,215 @@
-/* General Styles */./config.json';
+/* General Styles */
 body {
-  font-family: 'Arial', sans-serif;ogin
-  line-height: 1.6;stener("DOMContentLoaded", () => {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
   background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* Gradient background */
-} forms.forEach((form) => {
-    form.addEventListener("submit", (e) => {
-/* Navbar */inputs = form.querySelectorAll("input[required]");
-header {t isValid = true;
+}
+
+/* Navbar */
+header {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}     inputs.forEach((input) => {
-        if (!input.value.trim()) {
-header h1 {sValid = false;
-  font-size: 1.5rem;sList.add("border-red-500");
-}         input.nextElementSibling?.classList.add("text-red-500");
-        } else {
-header nav a {t.classList.remove("border-red-500");
-  transition: color 0.3s ease;ling?.classList.remove("text-red-500");
-}       }
-      });
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+header nav a {
+  transition: color 0.3s ease;
+}
+
 /* General hover effect for navigation links */
-nav a {f (!isValid) {
+nav a {
   transition: all 0.3s ease-in-out;
-  position: relative; fill in all required fields.");
-}     }
-    });
+  position: relative;
+}
+
 nav a:hover {
   color: #1d4ed8; /* Change text color to blue */
 }
-// Handle Sign Up Form Submission
-nav a::after {entListener("DOMContentLoaded", () => {
-  content: '';Form = document.getElementById("signupForm");
+
+nav a::after {
+  content: '';
   position: absolute;
-  width: 0;orm.addEventListener("submit", async (e) => {
-  height: 2px;tDefault();
+  width: 0;
+  height: 2px;
   background: #1d4ed8; /* Blue underline */
-  left: 50%;username = document.getElementById("username").value;
-  bottom: -2px;il = document.getElementById("email").value;
-  transition: all 0.3s ease-in-out;ElementById("password").value;
+  left: 50%;
+  bottom: -2px;
+  transition: all 0.3s ease-in-out;
   transform: translateX(-50%);
-}     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+}
+
 nav a:hover::after {
   width: 100%; /* Expand underline on hover */
-}       alert("Please enter a valid email address.");
-        return;
+}
+
 /* Hero Section */
 section.bg-blue-50 {
-  background-color: #f0f9ff;t(password)) {
-}       alert("Password must be at least 8 characters long and include both letters and numbers.");
-        return;
+  background-color: #f0f9ff;
+}
+
 section.bg-blue-50 h2 {
   font-size: 2.5rem;
-}     try {
-        const response = await fetch("/api/signup", {
-/* Input Field */ "POST",
-input#searchInput {{ "Content-Type": "application/json" },
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;}),
-}       });
+}
 
-input#searchInput:focus {ait response.json();
-  border-color: #3b82f6; {
+/* Input Field */
+input#searchInput {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input#searchInput:focus {
+  border-color: #3b82f6;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-}         window.location.href = "/login.html";
-        } else {
-/* Featured Documents */sg);
+}
+
+/* Featured Documents */
 section#documents h3 {
-  font-size: 1.75rem; {
-}       alert("An error occurred. Please try again.");
-        console.error(error);
+  font-size: 1.75rem;
+}
+
 section#documents .grid div {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-} }
-});
+}
+
 section#documents .grid div:hover {
-  transform: translateY(-5px);n
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);", () => {
-} const loginForm = document.getElementById("loginForm");
-  if (loginForm) {
-/* Features Section */Listener("submit", async (e) => {
-section#features h3 {t();
-  font-size: 1.75rem;
-}     const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
-section#features .grid div {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}       const response = await fetch("/api/login", {
-          method: "POST",
-section#features .grid div:hover {": "application/json" },
-  transform: translateY(-5px);({ email, password }),
+  transform: translateY(-5px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-        const result = await response.json();
-/* Footer */response.ok) {
-footer {  alert(result.msg);
-  background-color: #1f2937;ef = "/dashboard.html"; // Redirect to dashboard or home page
+
+/* Features Section */
+section#features h3 {
+  font-size: 1.75rem;
+}
+
+section#features .grid div {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section#features .grid div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer */
+footer {
+  background-color: #1f2937;
   color: #ffffff;
-}         alert(result.msg);
-        }
-footer h4 {ch (error) {
-  font-size: 1.25rem;or occurred. Please try again.");
-}       console.error(error);
-      }
+}
+
+footer h4 {
+  font-size: 1.25rem;
+}
+
 footer a {
   transition: color 0.3s ease;
-});
-
-footer a:hover { Form Submission
-  color: #3b82f6;Listener("DOMContentLoaded", () => {
-} const uploadForm = document.getElementById("uploadForm");
-  if (uploadForm) {
-footer .flex div {EventListener("submit", async function (e) {
-  margin-bottom: 1rem;();
 }
-      const fileInput = document.getElementById("file");
-footer .flex div:last-child {rmData();
-  margin-bottom: 0;nd("file", fileInput.files[0]);
-}     formData.append("upload_preset", "edutvet"); // Replace with your unsigned upload preset
+
+footer a:hover {
+  color: #3b82f6;
+}
+
+footer .flex div {
+  margin-bottom: 1rem;
+}
+
+footer .flex div:last-child {
+  margin-bottom: 0;
+}
 
 footer .space-x-4 a {
-  font-size: 1.25rem;e = await fetch("https://api.cloudinary.com/v1_1/dnlb4ucpu/upload", {
-}         method: "POST",
-          body: formData,
+  font-size: 1.25rem;
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
-  header nav {data = await response.json();
-    flex-direction: column;) {
-    gap: 0.5rem;"Document uploaded successfully!");
-  }       console.log("Uploaded file URL:", data.secure_url);
-          uploadForm.reset();
+  header nav {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   footer .flex {
-    flex-direction: column;ading document. Please try again.");
+    flex-direction: column;
     text-align: center;
-  }   } catch (err) {
-        alert("Error uploading document. Please try again.");
-  footer .flex div {r(err);
+  }
+
+  footer .flex div {
     margin-bottom: 1.5rem;
-  } });
-} }
-});
+  }
+}
+
 /* Form Container */
-form {ple Slider for Featured Documents
+form {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}onst slides = document.querySelectorAll(".featured-slide");
-const totalSlides = slides.length;
+}
+
 form:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}   slide.classList.toggle("hidden", i !== index);
-  });
-/* Buttons */
-button {
-  transition: background-color 0.3s ease, transform 0.2s ease; () => {
-  cursor: pointer; currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-  z-index: 10;  showSlide(currentSlide);
 }
 
-button:hover {nextSlide").addEventListener("click", () => {
-  background-color: #2563eb; /* Darker blue */ currentSlide = (currentSlide + 1) % totalSlides;
-  transform: scale(1.05);  showSlide(currentSlide);
+/* Buttons */
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  z-index: 10;
+}
+
+button:hover {
+  background-color: #2563eb; /* Darker blue */
+  transform: scale(1.05);
 }
 
 /* Input Fields */
-input {ocument.addEventListener("DOMContentLoaded", () => {
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;  const slides = document.querySelector(".slides");
-}Count = document.querySelectorAll(".slide").length;
-ument.getElementById("prev");
-input:focus {xt");  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);  let currentIndex = 0;
+input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-SliderPosition() {#togglePassword {
-/* Password Toggle Button */ransform = `translateX(-${currentIndex * 100}%)`;
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Password Toggle Button */
 #togglePassword {
   cursor: pointer;
-  font-size: 0.875rem; prevButton.addEventListener("click", () => {
-  transition: color 0.3s ease;    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
-    updateSliderPosition();
-  });
-assword:hover {
-  nextButton.addEventListener("click", () => {
-    currentIndex = (currentIndex + 1) % slideCount;
-    updateSliderPosition();
-  });
-
-  // Auto-slide every 5 secondsransition: color 0.3s ease;
-  setInterval(() => {
-    currentIndex = (currentIndex + 1) % slideCount;
-    updateSliderPosition();
-  }, 5000);
-});
-
-// API Call Example for Document Search/* Slider Container */
-async function searchDocuments(query) {
-  try {;
-    const response = await fetch(`${config.api.baseUrl}/search?query=${query}`);
-    if (!response.ok) throw new Error("Failed to fetch documents");
-
-    const documents = await response.json();
-    const resultsContainer = document.getElementById("searchResults");/* Slider Wrapper */
-    resultsContainer.innerHTML = "";
-
-    documents.forEach((doc) => {
-      const docElement = `
-        <div class="bg-gray-100 p-4 rounded shadow">
-          <h4 class="font-bold text-lg mb-2">${doc.title}</h4>
-          <p class="text-sm mb-2">By ${doc.author} • ${doc.category}</p>
-          <a href="${doc.link}" class="text-blue-600 hover:underline">Download</a>
-        </div>
-      `;
-      resultsContainer.innerHTML += docElement;
-    });
-  } catch (error) {
-    console.error(error);block;
-    alert("An error occurred while searching for documents.");idth: 100%;
-  }  height: auto;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
 }
-document.getElementById("searchInput").addEventListener("input", (e) => {  const query = e.target.value.trim();  if (query.length > 2) searchDocuments(query);});// Local Document Filteringconst documents = [  { title: "Crop Protection Guide", author: "Jane Doe", category: "Agriculture", link: "#" },  { title: "TVET Curriculum Outline", author: "Edwin Chesaro", category: "Curriculum", link: "#" },  { title: "Lesson Plan Template", author: "Edwin Chesaro", category: "Teaching Aids", link: "#" },];function filterDocuments() {  const query = document.getElementById("searchInput").value.toLowerCase();  const resultsContainer = document.getElementById("searchResults");  resultsContainer.innerHTML = ""; // Clear previous results  const filteredDocs = documents.filter(doc =>     doc.title.toLowerCase().includes(query) ||     doc.author.toLowerCase().includes(query) ||     doc.category.toLowerCase().includes(query)  );  if (filteredDocs.length === 0) {    resultsContainer.innerHTML = "<p class='text-gray-500'>No documents found.</p>";    return;  }  filteredDocs.forEach(doc => {    const docElement = `      <div class="bg-gray-100 p-4 rounded shadow">        <h4 class="font-bold text-lg mb-2">${doc.title}</h4>        <p class="text-sm mb-2">By ${doc.author} • ${doc.category}</p>        <a href="${doc.link}" class="text-blue-600 hover:underline">Download</a>      </div>    `;    resultsContainer.innerHTML += docElement;  });}// Handle Reset Password Form Submissiondocument.addEventListener("DOMContentLoaded", () => {  const resetPasswordForm = document.getElementById("resetPasswordForm");  if (resetPasswordForm) {    const urlParams = new URLSearchParams(window.location.search);    const token = urlParams.get("token");    if (!token) {      alert("Invalid or missing token. Please try resetting your password again.");      window.location.href = "/index.html";      return;    }    resetPasswordForm.addEventListener("submit", async (e) => {      e.preventDefault();      const newPassword = document.getElementById("newPassword").value;      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;      if (!passwordRegex.test(newPassword)) {        alert("Password must be at least 8 characters long and include both letters and numbers.");        return;      }      try {        const response = await fetch("/api/reset-password", {          method: "POST",          headers: { "Content-Type": "application/json" },          body: JSON.stringify({ token, newPassword }),        });        const result = await response.json();
-        if (response.ok) {
-          alert(result.msg);
-          window.location.href = "/login.html";
-        } else {
-          alert(result.msg);
-        }
-      } catch (error) {
-        alert("An error occurred. Please try again later.");
-        console.error(error);
-      }
-    });
-  }
-});
 
-// Handle Password Visibility Toggle
-document.addEventListener("DOMContentLoaded", () => {
-  const togglePasswordButtons = document.querySelectorAll("#togglePassword");
-  togglePasswordButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const passwordInput = button.previousElementSibling;
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        button.textContent = "Hide";
-      } else {
-        passwordInput.type = "password";
-        button.textContent = "Show";
-      }
-    });
-  });
-});
+#togglePassword:hover {
+  color: #2563eb;
+}
+
+/* Slider Container */
+.slider-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Slider Wrapper */
+.slider {
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+/* Slides */
+.slides {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Individual Slide */
+.slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* Navigation Buttons */
+button {
+  cursor: pointer;
+  z-index: 10;
+}
