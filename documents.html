@@ -19,16 +19,19 @@
     function filterDocuments() {
       const query = document.getElementById("searchInput").value.toLowerCase();
       const cards = document.querySelectorAll(".document-card");
-      cards.forEach(card => {
+
+      if (!query) {
+        cards.forEach((card) => card.classList.remove("hidden"));
+        return;
+      }
+
+      cards.forEach((card) => {
         const type = card.getAttribute("data-type").toLowerCase();
         const level = card.getAttribute("data-level").toLowerCase();
         const title = card.querySelector("h4").textContent.toLowerCase();
 
         const matchesQuery = title.includes(query) || type.includes(query) || level.includes(query);
-        const matchesType = currentType === 'All' || type === currentType.toLowerCase();
-        const matchesLevel = currentLevel === 'All' || level === currentLevel.toLowerCase();
-
-        card.classList.toggle("hidden", !(matchesQuery && matchesType && matchesLevel));
+        card.classList.toggle("hidden", !matchesQuery);
       });
     }
   </script>

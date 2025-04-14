@@ -31,7 +31,7 @@
     <p class="text-center text-gray-600 mb-12">Share your resources with the EduTVET community by uploading approved documents for teaching and learning.</p>
 
     <!-- Upload Form -->
-    <form id="uploadForm" class="space-y-6 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow">
+    <form id="uploadForm" action="/api/upload" method="POST" enctype="multipart/form-data" class="space-y-6 max-w-2xl mx-auto bg-white p-8 rounded-lg shadow">
       <div>
         <label for="file" class="block font-medium text-gray-700">Document File</label>
         <input type="file" id="file" name="file" accept=".pdf,.docx,.pptx" class="mt-2 block w-full p-2 border border-gray-300 rounded" required>

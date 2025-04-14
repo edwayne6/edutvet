@@ -1,3 +1,5 @@
+import config from './config.json';
+
 // Form Validation for Signup and Login
 document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll("form");
@@ -49,7 +51,7 @@ document.getElementById("nextSlide").addEventListener("click", () => {
 // API Call Example for Document Search
 async function searchDocuments(query) {
   try {
-    const response = await fetch(`https://api.edutvet.com/search?query=${query}`);
+    const response = await fetch(`${config.api.baseUrl}/search?query=${query}`);
     if (!response.ok) throw new Error("Failed to fetch documents");
 
     const documents = await response.json();

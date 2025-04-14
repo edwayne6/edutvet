@@ -36,36 +36,29 @@
     </div>
   </div>
   <script>
-    document.getElementById("signupForm").addEventListener("submit", (e) => {
-      const password = document.getElementById("password").value;
-      const email = document.getElementById("email").value;
-
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
-      if (!emailRegex.test(email)) {
-        e.preventDefault();
-        alert("Please enter a valid email address.");
-        return;
-      }
-
-      if (!passwordRegex.test(password)) {
-        e.preventDefault();
-        alert("Password must be at least 8 characters long and include both letters and numbers.");
-        return;
-      }
-    });
-
     document.getElementById("signupForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const username = document.getElementById("username").value;
       const email = document.getElementById("email").value;
       const password = document.getElementById("password").value;
 
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
+      if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      if (!passwordRegex.test(password)) {
+        alert("Password must be at least 8 characters long and include both letters and numbers.");
+        return;
+      }
+
       const response = await fetch("/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, password }),
       });
 
       const result = await response.json();
