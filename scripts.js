@@ -296,19 +296,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentIndex = 0;
 
+  // Function to update the slider position
   function updateSliderPosition() {
     slides.style.transform = `translateX(-${currentIndex * 100}%)`;
   }
 
   // Move to the next slide
   function nextSlide() {
-    currentIndex = (currentIndex + 1) % slideCount;
+    currentIndex = (currentIndex + 1) % slideCount; // Loop back to the first slide
     updateSliderPosition();
   }
 
   // Move to the previous slide
   function prevSlide() {
-    currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+    currentIndex = (currentIndex - 1 + slideCount) % slideCount; // Loop back to the last slide
     updateSliderPosition();
   }
 
@@ -317,11 +318,5 @@ document.addEventListener("DOMContentLoaded", () => {
   nextButton.addEventListener("click", nextSlide);
 
   // Auto-slide every 3 seconds
-  let autoSlide = setInterval(nextSlide, 3000);
-
-  const slider = document.querySelector(".slider");
-  slider.addEventListener("mouseenter", () => clearInterval(autoSlide));
-  slider.addEventListener("mouseleave", () => {
-    autoSlide = setInterval(nextSlide, 3000);
-  });
+  setInterval(nextSlide, 3000);
 });
