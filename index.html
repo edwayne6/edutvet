@@ -159,42 +159,5 @@
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
   <script src="scripts.js"></script>
 
-  <script>
-  // filepath: c:\Users\chesaro\Music\edutvet 07032025\home.html
-  const documents = [
-    { title: "Crop Protection Guide", author: "Jane Doe", category: "Agriculture", link: "#" },
-    { title: "TVET Curriculum Outline", author: "Edwin Chesaro", category: "Curriculum", link: "#" },
-    { title: "Lesson Plan Template", author: "Edwin Chesaro", category: "Teaching Aids", link: "#" },
-  ];
-
-  function filterDocuments() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
-    const resultsContainer = document.getElementById("searchResults");
-    resultsContainer.innerHTML = ""; // Clear previous results
-
-    const filteredDocs = documents.filter(doc => 
-      doc.title.toLowerCase().includes(query) || 
-      doc.author.toLowerCase().includes(query) || 
-      doc.category.toLowerCase().includes(query)
-    );
-
-    if (filteredDocs.length === 0) {
-      resultsContainer.innerHTML = "<p class='text-gray-500'>No documents found.</p>";
-      return;
-    }
-
-    filteredDocs.forEach(doc => {
-      const docElement = `
-        <div class="bg-gray-100 p-4 rounded shadow">
-          <h4 class="font-bold text-lg mb-2">${doc.title}</h4>
-          <p class="text-sm mb-2">By ${doc.author} • ${doc.category}</p>
-          <a href="${doc.link}" class="text-blue-600 hover:underline">Download</a>
-        </div>
-      `;
-      resultsContainer.innerHTML += docElement;
-    });
-  }
-  </script>
-
 </body>
 </html>
