@@ -270,3 +270,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Handle Password Visibility Toggle
+document.addEventListener("DOMContentLoaded", () => {
+  const togglePasswordButtons = document.querySelectorAll("#togglePassword");
+  togglePasswordButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const passwordInput = button.previousElementSibling;
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        button.textContent = "Hide";
+      } else {
+        passwordInput.type = "password";
+        button.textContent = "Show";
+      }
+    });
+  });
+});

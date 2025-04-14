@@ -2,6 +2,7 @@
 body {
   font-family: 'Arial', sans-serif;
   line-height: 1.6;
+  background: linear-gradient(to bottom, #e0f7fa, #ffffff); /* Gradient background */
 }
 
 /* Navbar */
@@ -135,4 +136,54 @@ footer .space-x-4 a {
   footer .flex div {
     margin-bottom: 1.5rem;
   }
+}
+
+/* Form Container */
+form {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+form:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Buttons */
+button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #2563eb; /* Darker blue */
+  transform: scale(1.05);
+}
+
+/* Input Fields */
+input {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Password Toggle Button */
+#togglePassword {
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: color 0.3s ease;
+}
+
+#togglePassword:hover {
+  color: #2563eb;
+}
+
+/* Links */
+a {
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: #2563eb;
 }
