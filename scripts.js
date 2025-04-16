@@ -1,5 +1,10 @@
 import config from './config.json';
 
+// Initialize Supabase
+const SUPABASE_URL = "https://frtueyicmjftwtsrmxfi.supabase.co"; // Your Supabase URL
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZydHVleWljbWpmdHd0c3JteGZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4MTY0NzcsImV4cCI6MjA2MDM5MjQ3N30.kKEvq1WvSM4FXArdNjGxXERslO29o_p4KnbOfMyGvqc"; // Your Supabase API Key
+const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 // Form Validation for Signup and Login
 document.addEventListener("DOMContentLoaded", () => {
   const forms = document.querySelectorAll("form");
@@ -319,4 +324,66 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Auto-slide every 3 seconds
   setInterval(nextSlide, 3000);
+});
+
+// Google Login
+document.addEventListener("DOMContentLoaded", () => {
+  const googleLoginButton = document.getElementById("googleLogin");
+
+  if (googleLoginButton) {
+    googleLoginButton.addEventListener("click", async () => {
+      try {
+        const { user, session, error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+        });
+
+        if (error) {
+          console.error("Google login failed:", error.message);
+          alert("Google login failed. Please try again.");
+          return;
+        }
+
+        // Redirect to dashboard after successful login
+        if (user) {
+          alert("Login successful!");
+          window.location.href = "dashboard.html";
+        }
+      } catch (err) {
+        console.error("An error occurred during Google login:", err);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
+});
+
+// Check Authentication on Page Load
+document.addEventListener("DOMContentLoaded", async () => {
+  const { data: { session } } = await supabase.auth.getSession();
+
+  if (!session) {
+    // Redirect to login page if not authenticated
+    if (!window.location.pathname.includes("login.html")) {
+      window.location.href = "login.html";
+    }
+  }
+});
+
+// Logout
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutButton = document.getElementById("logout");
+
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+      const { error } = await supabase.auth.signOut();
+
+      if (error) {
+        console.error("Logout failed:", error.message);
+        alert("Logout failed. Please try again.");
+        return;
+      }
+
+      alert("Logged out successfully!");
+      window.location.href = "login.html";
+    });
+  }
 });
