@@ -2,7 +2,7 @@ import config from './config.json';
 
 // Initialize Supabase
 const SUPABASE_URL = "https://frtueyicmjftwtsrmxfi.supabase.co"; // Your Supabase URL
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZydHVleWljbWpmdHd0c3JteGZpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4MTY0NzcsImV4cCI6MjA2MDM5MjQ3N30.kKEvq1WvSM4FXArdNjGxXERslO29o_p4KnbOfMyGvqc"; // Your Supabase API Key
+const SUPABASE_KEY = ""; // Your Supabase API Key
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // Form Validation for Signup and Login
