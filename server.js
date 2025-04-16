@@ -110,4 +110,44 @@ app.post("/api/login", async (req, res) => {
   res.json({ msg: "Login successful", user });
 });
 
+let documents = []; // Example in-memory storage
+
+// Upload document
+app.post("/api/upload", (req, res) => {
+  const { title, category, level, description, isApproved } = req.body;
+  const filePath = "/uploads/" + req.file.filename; // Assuming file upload middleware
+  const newDocument = {
+    id: documents.length + 1,
+    title,
+    category,
+    level,
+    description,
+    filePath,
+    isApproved: isApproved === "true", // Convert string to boolean
+  };
+  documents.push(newDocument);
+  res.status(201).json({ message: "Document uploaded successfully. Awaiting approval." });
+});
+
+// Approve document
+app.post("/api/documents/:id/approve", (req, res) => {
+  const documentId = parseInt(req.params.id);
+  const document = documents.find((doc) => doc.id === documentId);
+  if (!document) {
+    return res.status(404).json({ message: "Document not found." });
+  }
+  document.isApproved = true;
+  res.json({ message: "Document approved successfully." });
+});
+
+// Get all documents (filter by approval status)
+app.get("/api/documents", (req, res) => {
+  const { isApproved } = req.query;
+  const filteredDocuments = isApproved
+    ? documents.filter((doc) => doc.isApproved.toString() === isApproved)
+    : documents;
+  res.json(filteredDocuments);
+});
+
 app.listen(5000, () => console.log("Server running on port 5000"));
+app.listen(3000, () => console.log("Server running on port 3000"));

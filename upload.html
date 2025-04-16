@@ -60,6 +60,9 @@
         <textarea id="description" name="description" class="mt-2 block w-full p-2 border border-gray-300 rounded" placeholder="Provide a brief description of the document" required></textarea>
       </div>
 
+      <!-- Hidden field to mark the document as unapproved -->
+      <input type="hidden" name="isApproved" value="false">
+
       <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 w-full">Upload Document</button>
     </form>
 

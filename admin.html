@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Approve Documents</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 text-gray-800">
+  <section class="container mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-blue-700 text-center mb-8">Admin Dashboard</h2>
+    <div id="documentsList" class="space-y-4">
+      <!-- Documents will be dynamically loaded here -->
+    </div>
+  </section>
+
+  <script>
+    async function fetchDocuments() {
+      const response = await fetch("/api/documents?isApproved=false");
+      const documents = await response.json();
+      const documentsList = document.getElementById("documentsList");
+      documentsList.innerHTML = documents
+        .map(
+          (doc) => `
+        <div class="bg-gray-100 p-4 rounded shadow">
+          <h4 class="font-bold text-lg mb-2">${doc.title}</h4>
+          <p class="text-sm mb-2">Category: ${doc.category}</p>
+          <p class="text-sm mb-2">Level: ${doc.level}</p>
+          <p class="text-sm mb-2">Description: ${doc.description}</p>
+          <button onclick="approveDocument(${doc.id})" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            Approve
+          </button>
+        </div>
+      `
+        )
+        .join("");
+    }
+
+    async function approveDocument(id) {
+      const response = await fetch(`/api/documents/${id}/approve`, { method: "POST" });
+      if (response.ok) {
+        alert("Document approved successfully.");
+        fetchDocuments(); // Refresh the list
+      } else {
+        alert("Failed to approve document.");
+      }
+    }
+
+    // Fetch documents on page load
+    fetchDocuments();
+  </script>
+</body>
+</html>
