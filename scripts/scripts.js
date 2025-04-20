@@ -2,11 +2,11 @@ import config from './config.json';
 
 // Initialize Supabase
 const SUPABASE_URL = "https://frtueyicmjftwtsrmxfi.supabase.co"; // Your Supabase URL
-const SUPABASE_KEY = ""; // Your Supabase API Key
+const SUPABASE_KEY = "your-supabase-key"; // Replace with your actual Supabase API Key
 const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// Form Validation for Signup and Login
 document.addEventListener("DOMContentLoaded", () => {
+  // Form Validation
   const forms = document.querySelectorAll("form");
   forms.forEach((form) => {
     form.addEventListener("submit", (e) => {
@@ -30,10 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-});
 
-// Handle Sign Up Form Submission
-document.addEventListener("DOMContentLoaded", () => {
+  // Handle Sign Up Form Submission
   const signupForm = document.getElementById("signupForm");
   if (signupForm) {
     signupForm.addEventListener("submit", async (e) => {
@@ -57,29 +55,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       try {
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, email, password }),
+        const { user, error } = await supabase.auth.signUp({
+          email,
+          password,
         });
 
-        const result = await response.json();
-        if (response.ok) {
-          alert(result.msg);
-          window.location.href = "/login.html";
-        } else {
-          alert(result.msg);
+        if (error) {
+          alert(error.message);
+          return;
         }
-      } catch (error) {
+
+        alert("Sign-up successful! Please check your email to confirm your account.");
+        window.location.href = "/login.html";
+      } catch (err) {
+        console.error("Sign-up error:", err);
         alert("An error occurred. Please try again.");
-        console.error(error);
       }
     });
   }
-});
 
-// Handle Login Form Submission
-document.addEventListener("DOMContentLoaded", () => {
+  // Handle Login Form Submission
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
@@ -89,56 +84,117 @@ document.addEventListener("DOMContentLoaded", () => {
       const password = document.getElementById("password").value;
 
       try {
-        const response = await fetch("/api/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
+        const { user, session, error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
         });
 
-        const result = await response.json();
-        if (response.ok) {
-          alert(result.msg);
-          window.location.href = "/dashboard.html"; // Redirect to dashboard or home page
-        } else {
-          alert(result.msg);
+        if (error) {
+          alert(error.message);
+          return;
         }
-      } catch (error) {
+
+        alert("Login successful!");
+        window.location.href = "/dashboard.html";
+      } catch (err) {
+        console.error("Login error:", err);
         alert("An error occurred. Please try again.");
-        console.error(error);
       }
     });
   }
-});
 
-// Handle Upload Form Submission
-document.addEventListener("DOMContentLoaded", () => {
+  // Handle Google Login
+  const googleLoginButton = document.getElementById("googleLogin");
+  if (googleLoginButton) {
+    googleLoginButton.addEventListener("click", async () => {
+      try {
+        const { user, session, error } = await supabase.auth.signInWithOAuth({
+          provider: "google",
+        });
+
+        if (error) {
+          alert(error.message);
+          return;
+        }
+
+        alert("Login successful!");
+        window.location.href = "/dashboard.html";
+      } catch (err) {
+        console.error("Google login error:", err);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
+
+  // Handle Upload Form Submission
   const uploadForm = document.getElementById("uploadForm");
   if (uploadForm) {
-    uploadForm.addEventListener("submit", async function (e) {
+    uploadForm.addEventListener("submit", async (e) => {
       e.preventDefault();
 
       const fileInput = document.getElementById("file");
-      const formData = new FormData();
-      formData.append("file", fileInput.files[0]);
-      formData.append("upload_preset", "edutvet"); // Replace with your unsigned upload preset
+      const formData = new FormData(uploadForm);
 
       try {
-        const response = await fetch("https://api.cloudinary.com/v1_1/dnlb4ucpu/upload", {
+        const response = await fetch("/api/upload", {
           method: "POST",
           body: formData,
         });
 
-        const data = await response.json();
-        if (data.secure_url) {
-          alert("Document uploaded successfully!");
-          console.log("Uploaded file URL:", data.secure_url);
-          uploadForm.reset();
-        } else {
-          alert("Error uploading document. Please try again.");
+        if (!response.ok) {
+          throw new Error("Failed to upload document.");
         }
+
+        alert("Document uploaded successfully!");
+        uploadForm.reset();
       } catch (err) {
-        alert("Error uploading document. Please try again.");
-        console.error(err);
+        console.error("Upload error:", err);
+        alert("An error occurred. Please try again.");
+      }
+    });
+  }
+
+  // Handle Password Visibility Toggle
+  const togglePasswordButtons = document.querySelectorAll("#togglePassword");
+  togglePasswordButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const passwordInput = button.previousElementSibling;
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        button.textContent = "Hide";
+      } else {
+        passwordInput.type = "password";
+        button.textContent = "Show";
+      }
+    });
+  });
+
+  // Check Authentication on Page Load
+  (async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (!session && !window.location.pathname.includes("login.html")) {
+      window.location.href = "/login.html";
+    }
+  })();
+
+  // Handle Logout
+  const logoutButton = document.getElementById("logout");
+  if (logoutButton) {
+    logoutButton.addEventListener("click", async () => {
+      try {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+          alert(error.message);
+          return;
+        }
+
+        alert("Logged out successfully!");
+        window.location.href = "/login.html";
+      } catch (err) {
+        console.error("Logout error:", err);
+        alert("An error occurred. Please try again.");
       }
     });
   }
@@ -276,23 +332,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Handle Password Visibility Toggle
-document.addEventListener("DOMContentLoaded", () => {
-  const togglePasswordButtons = document.querySelectorAll("#togglePassword");
-  togglePasswordButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const passwordInput = button.previousElementSibling;
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        button.textContent = "Hide";
-      } else {
-        passwordInput.type = "password";
-        button.textContent = "Show";
-      }
-    });
-  });
-});
-
 document.addEventListener("DOMContentLoaded", () => {
   const slides = document.querySelector(".slides");
   const slideCount = document.querySelectorAll(".slide").length;
@@ -324,66 +363,4 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Auto-slide every 3 seconds
   setInterval(nextSlide, 3000);
-});
-
-// Google Login
-document.addEventListener("DOMContentLoaded", () => {
-  const googleLoginButton = document.getElementById("googleLogin");
-
-  if (googleLoginButton) {
-    googleLoginButton.addEventListener("click", async () => {
-      try {
-        const { user, session, error } = await supabase.auth.signInWithOAuth({
-          provider: "google",
-        });
-
-        if (error) {
-          console.error("Google login failed:", error.message);
-          alert("Google login failed. Please try again.");
-          return;
-        }
-
-        // Redirect to dashboard after successful login
-        if (user) {
-          alert("Login successful!");
-          window.location.href = "dashboard.html";
-        }
-      } catch (err) {
-        console.error("An error occurred during Google login:", err);
-        alert("An error occurred. Please try again.");
-      }
-    });
-  }
-});
-
-// Check Authentication on Page Load
-document.addEventListener("DOMContentLoaded", async () => {
-  const { data: { session } } = await supabase.auth.getSession();
-
-  if (!session) {
-    // Redirect to login page if not authenticated
-    if (!window.location.pathname.includes("login.html")) {
-      window.location.href = "login.html";
-    }
-  }
-});
-
-// Logout
-document.addEventListener("DOMContentLoaded", () => {
-  const logoutButton = document.getElementById("logout");
-
-  if (logoutButton) {
-    logoutButton.addEventListener("click", async () => {
-      const { error } = await supabase.auth.signOut();
-
-      if (error) {
-        console.error("Logout failed:", error.message);
-        alert("Logout failed. Please try again.");
-        return;
-      }
-
-      alert("Logged out successfully!");
-      window.location.href = "login.html";
-    });
-  }
 });

@@ -5,11 +5,15 @@ const dotenv = require("dotenv");
 const User = require("./models/User");
 const nodemailer = require("nodemailer"); // For sending emails
 const bcrypt = require("bcrypt"); // For password hashing
+const multer = require("multer");
+const crypto = require("crypto");
 
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000"],
+}));
 app.use(express.json());
 
 // MongoDB connection
@@ -30,61 +34,78 @@ const transporter = nodemailer.createTransport({
   }
 });
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
 // Forgot Password Route
 app.post("/api/forgot-password", async (req, res) => {
-  const { email } = req.body;
-
-  // Check if the user exists
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ msg: "User not found" });
-  }
-
-  // Generate a password reset token (for simplicity, using email as a token here)
-  const resetToken = Buffer.from(email).toString("base64");
-
-  // Send password reset email
-  const resetLink = `http://localhost:5000/reset-password?token=${resetToken}`;
-  const mailOptions = {
-    from: process.env.EMAIL_USER,
-    to: email,
-    subject: "Password Reset Request",
-    html: `
-      <p>Hello,</p>
-      <p>You requested to reset your password. Click the link below to reset it:</p>
-      <a href="${resetLink}">${resetLink}</a>
-      <p>If you did not request this, please ignore this email.</p>
-    `
-  };
-
   try {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    const resetToken = crypto.randomBytes(32).toString("hex");
+    user.resetToken = resetToken;
+    user.resetTokenExpires = Date.now() + 3600000; // Token valid for 1 hour
+    await user.save();
+
+    const resetLink = `http://localhost:5000/reset-password?token=${resetToken}`;
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Password Reset Request",
+      html: `
+        <p>Hello,</p>
+        <p>You requested to reset your password. Click the link below to reset it:</p>
+        <a href="${resetLink}">${resetLink}</a>
+        <p>If you did not request this, please ignore this email.</p>
+      `,
+    };
+
     await transporter.sendMail(mailOptions);
     res.json({ msg: "Password reset email sent" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ msg: "Error sending email" });
+    res.status(500).json({ msg: "Internal server error" });
   }
 });
 
 // Reset Password Route
 app.post("/api/reset-password", async (req, res) => {
-  const { token, newPassword } = req.body;
+  try {
+    const { token, newPassword } = req.body;
 
-  // Decode the token to get the email
-  const email = Buffer.from(token, "base64").toString("ascii");
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpires: { $gt: Date.now() }, // Ensure token is not expired
+    });
 
-  // Find the user by email
-  const user = await User.findOne({ email });
-  if (!user) {
-    return res.status(404).json({ msg: "Invalid or expired token" });
+    if (!user) {
+      return res.status(400).json({ msg: "Invalid or expired token" });
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    user.password = hashedPassword;
+    user.resetToken = undefined; // Clear the reset token
+    user.resetTokenExpires = undefined;
+    await user.save();
+
+    res.json({ msg: "Password reset successful" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Internal server error" });
   }
-
-  // Hash the new password
-  const hashedPassword = await bcrypt.hash(newPassword, 10);
-  user.password = hashedPassword;
-  await user.save();
-
-  res.json({ msg: "Password reset successful" });
 });
 
 // Sign-up Route
@@ -113,9 +134,9 @@ app.post("/api/login", async (req, res) => {
 let documents = []; // Example in-memory storage
 
 // Upload document
-app.post("/api/upload", (req, res) => {
+app.post("/api/upload", upload.single("file"), (req, res) => {
   const { title, category, level, description, isApproved } = req.body;
-  const filePath = "/uploads/" + req.file.filename; // Assuming file upload middleware
+  const filePath = "/uploads/" + req.file.filename; // File path from multer
   const newDocument = {
     id: documents.length + 1,
     title,
@@ -150,4 +171,3 @@ app.get("/api/documents", (req, res) => {
 });
 
 app.listen(5000, () => console.log("Server running on port 5000"));
-app.listen(3000, () => console.log("Server running on port 3000"));
