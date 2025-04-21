@@ -364,3 +364,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // Auto-slide every 3 seconds
   setInterval(nextSlide, 3000);
 });
+
+const toggleButton = document.getElementById('darkModeToggle');
+const htmlElement = document.documentElement;
+
+toggleButton.addEventListener('click', () => {
+  htmlElement.classList.toggle('dark');
+  toggleButton.textContent = htmlElement.classList.contains('dark') ? 'Light Mode' : 'Dark Mode';
+});
+
+const darkModeIcon = document.getElementById('darkModeIcon');
+
+toggleButton.addEventListener('click', () => {
+  htmlElement.classList.toggle('dark');
+  const isDarkMode = htmlElement.classList.contains('dark');
+  darkModeIcon.className = isDarkMode ? 'fas fa-sun' : 'fas fa-moon'; // Toggle between sun and moon icons
+});
